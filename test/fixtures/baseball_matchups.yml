@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  espn_id: 1
+  week: 1
+  runs: 1
+  hr: 1
+  rbi: 1
+  sb: 1
+  obp: 
+  slg: 
+  ip: 
+  qs: 1
+  sv: 1
+  era: 
+  whip: 
+  k9: 
+
+two:
+  espn_id: 1
+  week: 1
+  runs: 1
+  hr: 1
+  rbi: 1
+  sb: 1
+  obp: 
+  slg: 
+  ip: 
+  qs: 1
+  sv: 1
+  era: 
+  whip: 
+  k9: 

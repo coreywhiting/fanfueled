@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'baseball_matchup/scrape'
+
+  get 'baseball_matchup/update_teams'
+
   namespace :admin do
     resources :users
     root to: "users#index"

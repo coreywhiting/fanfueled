@@ -11,10 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516204840) do
+ActiveRecord::Schema.define(version: 20160524162653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "baseball_matchups", force: :cascade do |t|
+    t.integer  "espn_id"
+    t.integer  "week"
+    t.integer  "runs"
+    t.integer  "hr"
+    t.integer  "rbi"
+    t.integer  "sb"
+    t.float    "obp"
+    t.float    "slg"
+    t.float    "ip"
+    t.integer  "qs"
+    t.integer  "sv"
+    t.float    "era"
+    t.float    "whip"
+    t.float    "k9"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.string   "team_name"
+    t.integer  "espn_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
