@@ -1,47 +1,59 @@
 <% provide(:title, "Baseball") %>
 
-<%= simple_form_for :week_range, :html => {:class => 'form-horizontal'}, :method => 'get' do |f| %>
-    <div class="form-group">
-      <div class="col-sm-offset-1 col-sm-3">
-        <%= f.input :first, :input_html => {:value => @first_week.to_i} %>
-        <%= f.input :last, :input_html => {:value => @last_week.to_i} %>
-        <%= f.button :submit %>
-      </div>
-    </div>
-<% end %>
+<div class="container">
 
-<h3>team averages</h3>
-<table class="table-bordered">
-  <tr>
-    <td><h4>name</h4></td>
-    <td width="5%"><h4>runs</h4></td>
-    <td width="5%"><h4>hr</h4></td>
-    <td width="5%"><h4>rbi</h4></td>
-    <td width="5%"><h4>sb</h4></td>
-    <td width="5%"><h4>obp</h4></td>
-    <td width="5%"><h4>slg</h4></td>
-    <td width="5%"><h4>ip</h4></td>
-    <td width="5%"><h4>qs</h4></td>
-    <td width="5%"><h4>sv</h4></td>
-    <td width="5%"><h4>era</h4></td>
-    <td width="5%"><h4>whip</h4></td>
-    <td width="5%"><h4>k9</h4></td>
-  </tr>
-  <% @members.each do |m| %>
-      <tr>
-        <td class="member-name"><%= m.team_name %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:runs], :precision => 1) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:hr], :precision => 1) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:rbi], :precision => 1) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:sb], :precision => 1) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:obp], :precision => 3) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:slg], :precision => 3) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:ip], :precision => 1) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:qs], :precision => 1) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:sv], :precision => 1) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:era], :precision => 2) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:whip], :precision => 2) %></td>
-        <td><%= number_with_precision(@team_averages[m.espn_id][:k9], :precision => 2) %></td>
-      </tr>
-  <% end %>
-</table>
+  <!-- Marketing Icons Section -->
+  <div class="row">
+    <div class="col-lg-12">
+
+      <h3>set week range</h3>
+      <%= simple_form_for :week_range, :html => {:class => 'form-horizontal'}, :method => 'get' do |f| %>
+          <div class="form-group">
+            <div class="col-lg-4">
+              <%= f.input :first, :input_html => {:value => @first_week.to_i} %>
+              <%= f.input :last, :input_html => {:value => @last_week.to_i} %>
+              <%= f.button :submit %>
+            </div>
+          </div>
+      <% end %>
+
+      <hr>
+
+      <h3>team averages</h3>
+      <table class="table-bordered">
+        <tr>
+          <td><h4>name</h4></td>
+          <td width="5%"><h4>runs</h4></td>
+          <td width="5%"><h4>hr</h4></td>
+          <td width="5%"><h4>rbi</h4></td>
+          <td width="5%"><h4>sb</h4></td>
+          <td width="5%"><h4>obp</h4></td>
+          <td width="5%"><h4>slg</h4></td>
+          <td width="5%"><h4>ip</h4></td>
+          <td width="5%"><h4>qs</h4></td>
+          <td width="5%"><h4>sv</h4></td>
+          <td width="5%"><h4>era</h4></td>
+          <td width="5%"><h4>whip</h4></td>
+          <td width="5%"><h4>k9</h4></td>
+        </tr>
+        <% @members.each do |m| %>
+            <tr>
+              <td class="member-name"><%= m.team_name %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:runs], :precision => 1) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:hr], :precision => 1) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:rbi], :precision => 1) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:sb], :precision => 1) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:obp], :precision => 3) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:slg], :precision => 3) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:ip], :precision => 1) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:qs], :precision => 1) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:sv], :precision => 1) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:era], :precision => 2) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:whip], :precision => 2) %></td>
+              <td><%= number_with_precision(@team_averages[m.espn_id][:k9], :precision => 2) %></td>
+            </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

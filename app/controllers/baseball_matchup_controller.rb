@@ -1,7 +1,8 @@
 class BaseballMatchupController < ApplicationController
   def index
-    @first_week = week_range_params[:first]
-    @last_week = week_range_params[:last]
+    @first_week = week_range_params[:first] || 1
+    #TODO find default last week
+    @last_week = week_range_params[:last] || 99
 
     stats = [ :runs,
               :hr,
@@ -24,24 +25,24 @@ class BaseballMatchupController < ApplicationController
 
     @members.each do |m|
       @team_averages[m.espn_id] = {
-          :runs => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:runs),
-          :hr => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:hr),
-          :rbi => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:rbi),
-          :sb => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:sb),
-          :obp => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:obp),
-          :slg => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:slg),
-          :ip => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:ip),
-          :qs => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:qs),
-          :sv => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:sv),
-          :era => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:era),
-          :whip => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:whip),
-          :k9 => BaseballMatchup.where(espn_id: m.espn_id, week: week_range_params[:first].to_i..week_range_params[:last].to_i).average(:k9)
+          :runs => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:runs),
+          :hr => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:hr),
+          :rbi => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:rbi),
+          :sb => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:sb),
+          :obp => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:obp),
+          :slg => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:slg),
+          :ip => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:ip),
+          :qs => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:qs),
+          :sv => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:sv),
+          :era => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:era),
+          :whip => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:whip),
+          :k9 => BaseballMatchup.where(espn_id: m.espn_id, week: @first_week..@last_week).average(:k9)
       }
     end
   end
 
   private
     def week_range_params
-      params.require(:week_range).permit(:first, :last)
+      params.fetch(:week_range, {}).permit(:first, :last)
     end
 end
