@@ -12,7 +12,7 @@
             <div class="col-lg-4">
               <%= f.input :first, :input_html => {:value => @first_week.to_i} %>
               <%= f.input :last, :input_html => {:value => @last_week.to_i} %>
-              <%= f.button :submit %>
+              <%= f.button :submit, id: 'week_range_submit' %>
             </div>
           </div>
       <% end %>
@@ -54,6 +54,106 @@
             </tr>
         <% end %>
       </table>
+
+      <hr>
+
+      <h3>weekly means/std devs</h3>
+      <table class="table-bordered">
+        <tr>
+          <td><h4>metric</h4></td>
+          <td width="5%"><h4>runs</h4></td>
+          <td width="5%"><h4>hr</h4></td>
+          <td width="5%"><h4>rbi</h4></td>
+          <td width="5%"><h4>sb</h4></td>
+          <td width="5%"><h4>obp</h4></td>
+          <td width="5%"><h4>slg</h4></td>
+          <td width="5%"><h4>ip</h4></td>
+          <td width="5%"><h4>qs</h4></td>
+          <td width="5%"><h4>sv</h4></td>
+          <td width="5%"><h4>era</h4></td>
+          <td width="5%"><h4>whip</h4></td>
+          <td width="5%"><h4>k9</h4></td>
+        </tr>
+
+        <tr>
+          <td class="member-name">mean</td>
+          <td><%= number_with_precision(@stat_means[:runs], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_means[:hr], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_means[:rbi], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_means[:sb], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_means[:obp], :precision => 3) %></td>
+          <td><%= number_with_precision(@stat_means[:slg], :precision => 3) %></td>
+          <td><%= number_with_precision(@stat_means[:ip], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_means[:qs], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_means[:sv], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_means[:era], :precision => 2) %></td>
+          <td><%= number_with_precision(@stat_means[:whip], :precision => 2) %></td>
+          <td><%= number_with_precision(@stat_means[:k9], :precision => 2) %></td>
+        </tr>
+
+        <tr>
+          <td class="member-name">std dev</td>
+          <td><%= number_with_precision(@stat_stddev[:runs], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_stddev[:hr], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_stddev[:rbi], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_stddev[:sb], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_stddev[:obp], :precision => 3) %></td>
+          <td><%= number_with_precision(@stat_stddev[:slg], :precision => 3) %></td>
+          <td><%= number_with_precision(@stat_stddev[:ip], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_stddev[:qs], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_stddev[:sv], :precision => 1) %></td>
+          <td><%= number_with_precision(@stat_stddev[:era], :precision => 2) %></td>
+          <td><%= number_with_precision(@stat_stddev[:whip], :precision => 2) %></td>
+          <td><%= number_with_precision(@stat_stddev[:k9], :precision => 2) %></td>
+        </tr>
+
+      </table>
+
+      <hr>
+
+      <h3>z-scores</h3>
+      <h5>how far away from the mean is each member?<br>
+        winners and losers represent a team > or < .5 standard deviations from the mean
+      </h5>
+      <table class="table-bordered">
+        <tr>
+          <td><h4>name</h4></td>
+          <td width="5%"><h4>runs</h4></td>
+          <td width="5%"><h4>hr</h4></td>
+          <td width="5%"><h4>rbi</h4></td>
+          <td width="5%"><h4>sb</h4></td>
+          <td width="5%"><h4>obp</h4></td>
+          <td width="5%"><h4>slg</h4></td>
+          <td width="5%"><h4>ip</h4></td>
+          <td width="5%"><h4>qs</h4></td>
+          <td width="5%"><h4>sv</h4></td>
+          <td width="5%"><h4>era</h4></td>
+          <td width="5%"><h4>whip</h4></td>
+          <td width="5%"><h4>k9</h4></td>
+          <td width="3%"><h4>W</h4></td>
+          <td width="3%"><h4>L</h4></td>
+        </tr>
+        <% @members.order(:espn_id).each do |m| %>
+            <tr id="zscores">
+              <td class="member-name"><%= m.team_name %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][0], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][1], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][2], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][3], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][4], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][5], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][6], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][7], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][8], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][9], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][10], :precision => 2) %></td>
+              <td class="zscore"><%= number_with_precision(@zscores[m.espn_id][11], :precision => 2) %></td>
+              <td><%= @zscores[m.espn_id][12] %></td>
+              <td><%= @zscores[m.espn_id][13] %></td>
+            </tr>
+        <% end %>
+      </table>
+
     </div>
   </div>
 </div>
