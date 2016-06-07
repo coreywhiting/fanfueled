@@ -19,7 +19,7 @@ namespace :scrape do
     BaseballMatchup.reset_pk_sequence
 
     # weeks = Array(1..19)
-    weeks = Array(1..7)
+    weeks = Array(1..9)
     #weeks = Array(params[:scrape][:start_week]..params[:scrape][:end_week])
     # TODO better way to find weeks for scrape
 

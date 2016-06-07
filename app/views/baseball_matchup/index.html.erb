@@ -154,6 +154,14 @@
         <% end %>
       </table>
 
+      <h3>matchups</h3>
+      <h5>select your team to see how it fares vs other league members (based on z-scores)
+      </h5>
+
+      <%= collection_select :member, :id, @members, :id, :team_name, {} %>
+
+      <%= render :partial => 'matchup', :object => @matchups  %>
+
     </div>
   </div>
 </div>
